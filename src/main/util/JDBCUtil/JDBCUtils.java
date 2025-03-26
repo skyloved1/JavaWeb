@@ -28,14 +28,14 @@ public class JDBCUtils {
         getConnection("root", "123456", "jdbc").ifPresentOrElse(connection -> {
             try {
                 System.out.println("用户：" + connection.getMetaData().getUserName() + "连接成功");
-              /*  var lists = UsersDao.findAll(connection);
+                var lists = UsersDao.findAll(connection);
                 //foreach (Users user : UsersDao.findAll(connection)) {
 
                 for (var user : lists) {
                     System.out.println(user);
-                }*/
-                var user = UsersDao.findByNameAndPassword(connection, "张三", "123456");
-                System.out.println(user);
+                }
+                var user = UsersDao.findByNameAndPassword(connection, "张三", "123");
+                user.ifPresentOrElse(System.out::println, () -> System.out.println("用户不存在/查询失败"));
 
 
 
