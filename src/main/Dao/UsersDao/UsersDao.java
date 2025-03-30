@@ -17,6 +17,15 @@ public class UsersDao {
             }
             return users;
      }
+
+    /**
+     * 根据用户名和密码查找用户
+     * @param conn 数据库示例
+     * @param name  用户名
+     * @param password 密码
+     * @return 用户
+     * @throws SQLException 数据库异常
+     */
      static public Optional<User> findByNameAndPassword (Connection conn, String name, String password) throws SQLException {
           var state = conn.createStatement();
           var result = state.executeQuery("SELECT * FROM users WHERE name = '" + name + "' AND password = '" + password + "'");

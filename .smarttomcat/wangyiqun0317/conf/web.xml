@@ -4739,4 +4739,14 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+
+    <jsp-config>
+        <tag-lib>
+            <taglib-uri>/myTagLib</taglib-uri>
+        </tag-lib>
+        <taglib-location>
+            /WEB-INF/myTagLib.tld
+        </taglib-location>
+    </jsp-config>
+
 </web-app>

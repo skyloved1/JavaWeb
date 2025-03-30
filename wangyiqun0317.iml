@@ -9,5 +9,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jakarta.servlet-api-6.0.0" level="project" />
     <orderEntry type="library" name="mysql-connector-j-9.2.0" level="project" />
+    <orderEntry type="library" name="jsp-api-2.0" level="project" />
+    <orderEntry type="library" name="jakarta.servlet.jsp-api-4.0.0" level="project" />
   </component>
 </module>
