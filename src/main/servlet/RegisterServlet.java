@@ -11,7 +11,7 @@ import main.util.JDBCUtil.JDBCUtils;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 public class RegisterServlet  extends HttpServlet {
     @Override
@@ -29,16 +29,15 @@ public class RegisterServlet  extends HttpServlet {
             System.out.println("将跳转到注册页面");
             resp.sendRedirect("register.html");
         }
-        JDBCUtils.getConnection("root","123456","JDBC").ifPresent(
-                connection -> {
-                     User user = new User(username,password,email,date);
-                    try {
-                        UsersDao.insert(connection,user);
-                        resp.sendRedirect("login.html");
-                    } catch (Exception e) {
-                        System.out.println("注册失败"+e.getMessage());
-                    }
-                }
-        );
+        try {
+            User user = new User(username, password, email, date);
+            UsersDao usersDao = new UsersDao();
+            usersDao.insert(user);
+        } catch (ParseException e) {
+            System.out.println("注册失败"+e.getMessage()+"日期格式错误");
+        } catch (SQLException e) {
+            System.out.println("注册失败"+e.getMessage()+"数据库错误");
+        }
+
     }
 }
