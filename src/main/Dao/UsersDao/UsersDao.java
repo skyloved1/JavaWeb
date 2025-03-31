@@ -62,6 +62,10 @@ public class UsersDao {
 
     public int insert(User user) throws SQLException {
         var state = conn.get().createStatement();
+        var u = findByNameAndPassword(user.getName(), user.getPassword());
+        if (u.isPresent()) {
+            return 0;
+        }
         var simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         var birthday = simpleDateFormat.format(user.getBirthday());
         return state.executeUpdate("INSERT INTO users (name, email, password, birthday) VALUES ('" + user.getName() + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + birthday + "')");
