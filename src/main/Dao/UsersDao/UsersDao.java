@@ -4,7 +4,9 @@ import main.model.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class UsersDao {
@@ -34,5 +36,19 @@ public class UsersDao {
             }
             return Optional.empty();
      }
+     static public int insert(Connection conn, User user) throws SQLException {
+          var state = conn.createStatement();
+          var simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+          var birthday = simpleDateFormat.format(user.getBirthday());
+          return state.executeUpdate("INSERT INTO users (name, email, password, birthday) VALUES ('" + user.getName() + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + birthday + "')");
+     }
 
+    public static void delete(Connection connection, int id) {
+        try {
+            var state = connection.createStatement();
+            state.executeUpdate("DELETE FROM users WHERE id = " + id);
+        } catch (SQLException e) {
+            System.out.println("删除用户失败\t" + Arrays.toString(e.getStackTrace()));
+        }
+    }
 }

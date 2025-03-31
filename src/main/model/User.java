@@ -7,7 +7,7 @@ public class User {
     private String name;
     private String password;
     private String email;
-    private Date birthday;
+    private java.util.Date birthday;
     public User(int id, String name, String password, String email, Date birthday) {
         this.id = id;
         this.name = name;
@@ -48,7 +48,7 @@ public class User {
         this.email = email;
     }
 
-    public Date getBirthday() {
+    public java.util.Date getBirthday() {
         return birthday;
     }
 
