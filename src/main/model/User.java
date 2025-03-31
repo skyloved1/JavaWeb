@@ -1,5 +1,6 @@
 package main.model;
 
+import java.nio.file.InvalidPathException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,6 +11,7 @@ public class User {
     private String password;
     private String email;
     private java.util.Date birthday;
+
     public User(int id, String name, String password, String email, Date birthday) {
         this.id = id;
         this.name = name;
@@ -18,17 +20,11 @@ public class User {
         this.birthday = birthday;
     }
 
-    public User(String username, String password, String email, String date) {
+    public User(String username, String password, String email, String date) throws ParseException {
         this.name = username;
         this.password = password;
         this.email = email;
-        try {
-            this.birthday = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-        } catch (ParseException e) {
-            System.out.println("日期"+date+"格式不正确");
-            System.out.println("将使用当前日期");
-        }
-        this.birthday = new Date(System.currentTimeMillis());
+        this.birthday = new SimpleDateFormat("yyyy-MM-dd").parse(date);
     }
 
     public int getId() {
@@ -76,17 +72,11 @@ public class User {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.birthday=new Date(System.currentTimeMillis());
+        this.birthday = new Date(System.currentTimeMillis());
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", birthday=" + birthday +
-                '}';
+        return "User{" + "id=" + id + ", name='" + name + '\'' + ", password='" + password + '\'' + ", email='" + email + '\'' + ", birthday=" + birthday + '}';
     }
 }
