@@ -19,7 +19,7 @@ public class RegisterServlet extends HttpServlet {
         String email = req.getParameter("email");
         String date = req.getParameter("birthday");
 
-        if (username == null || password == null || email == null || date == null) {
+        if (username.isEmpty() || password.isEmpty() || email.isEmpty() || date.isEmpty()) {
             System.out.println("注册失败,参数为空");
             System.out.println("将跳转到注册页面");
             resp.sendRedirect("register.html");
