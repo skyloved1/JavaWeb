@@ -1,5 +1,7 @@
 package main.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class User {
@@ -14,6 +16,19 @@ public class User {
         this.password = password;
         this.email = email;
         this.birthday = birthday;
+    }
+
+    public User(String username, String password, String email, String date) {
+        this.name = username;
+        this.password = password;
+        this.email = email;
+        try {
+            this.birthday = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+        } catch (ParseException e) {
+            System.out.println("日期"+date+"格式不正确");
+            System.out.println("将使用当前日期");
+        }
+        this.birthday = new Date(System.currentTimeMillis());
     }
 
     public int getId() {

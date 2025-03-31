@@ -25,6 +25,7 @@ public class TestJDBC {
                 var user1 = UsersDao.findByNameAndPassword(connection, "李四", "123");
                 user1.ifPresentOrElse((user)->{
                     System.out.println(user);
+                    System.out.println("测试成功，即将删除");
                     UsersDao.delete(connection, user.getId());
                 }, () -> System.out.println("用户不存在/查询失败"));
 
