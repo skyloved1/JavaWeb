@@ -153,6 +153,25 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>RequestForwardServlet</servlet-name>
+        <servlet-class>test.RequestForwardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RequestForwardServlet</servlet-name>
+        <url-pattern>/requestForward</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ForwardServlet</servlet-name>
+        <servlet-class>test.ForwardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ForwardServlet</servlet-name>
+        <url-pattern>/forward</url-pattern>
+    </servlet-mapping>
+
+
 
 
 
