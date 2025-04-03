@@ -171,6 +171,17 @@
         <url-pattern>/forward</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CheckboxServlet</servlet-name>
+        <servlet-class>test.checkboxServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CheckboxServlet</servlet-name>
+        <url-pattern>/checkbox</url-pattern>
+    </servlet-mapping>
+
+
+
 
 
 

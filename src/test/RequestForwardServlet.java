@@ -14,6 +14,7 @@ public class RequestForwardServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
         req.setAttribute("username", "张三");
+        resp.setHeader("username", "张三");
         var dispatcher= req.getRequestDispatcher("/forward");
         dispatcher.forward(req, resp);
     }
