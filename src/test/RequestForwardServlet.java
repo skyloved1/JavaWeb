@@ -9,6 +9,13 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class RequestForwardServlet extends HttpServlet {
+
+
+
+
+
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
