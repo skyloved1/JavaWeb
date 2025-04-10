@@ -181,6 +181,37 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>CreateCookieDemoServlet</servlet-name>
+        <servlet-class>test.CreateCookieDemoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateCookieDemoServlet</servlet-name>
+        <url-pattern>/createCookie</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetCookieDemoServlet</servlet-name>
+        <servlet-class>test.GetCookieDemoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetCookieDemoServlet</servlet-name>
+        <url-pattern>/getCookie</url-pattern>
+    </servlet-mapping>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <servlet>
         <servlet-name>jsp</servlet-name>
         <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
         <init-param>
