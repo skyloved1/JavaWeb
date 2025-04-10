@@ -30,7 +30,10 @@ public class RegisterServlet extends HttpServlet {
             User user = new User(username, password, email, date);
             UsersDao usersDao = new UsersDao();
             usersDao.insert(user);
-            resp.sendRedirect("login.html");
+            //设置用户名到下一个页面
+            resp.sendRedirect("welcome.jsp");
+            //请求转发
+            //req.getRequestDispatcher("welcome.jsp").forward(req, resp);
         } catch (ParseException e) {
             System.out.println("注册失败" + e.getMessage() + "日期格式错误");
         } catch (SQLException e) {
