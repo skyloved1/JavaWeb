@@ -13,9 +13,12 @@ public class TestJDBC {
         user1.ifPresentOrElse((user) -> {
             System.out.println(user);
             System.out.println("测试成功，即将删除");
-            usersDao.delete(user.getId());
+            try {
+                usersDao.delete(user.getId());
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }, () -> System.out.println("用户不存在/查询失败"));
-        UsersDao.DestoryConnection();
 
 
     }

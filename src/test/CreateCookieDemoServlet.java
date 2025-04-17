@@ -32,5 +32,6 @@ public class CreateCookieDemoServlet extends HttpServlet {
         resp.addCookie(cookie1);
         resp.addCookie(cookie2);
         resp.addCookie(lastLoginDate);
+        resp.sendRedirect("getCookie");
     }
 }

@@ -3,80 +3,71 @@ package main.Dao.UsersDao;
 import main.model.User;
 import main.util.JDBCUtil.JDBCUtils;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 
 public class UsersDao {
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    public static Optional<Connection> conn = Optional.empty();
 
-    public UsersDao() {
-        if (conn.isEmpty()) {
-            conn = JDBCUtils.getConnection("root", "123456", "JDBC");
-        }
-    }
-
-    public static void DestoryConnection() {
-
-        conn.ifPresent((connection -> {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                System.out.println("关闭连接失败" + Arrays.toString(e.getStackTrace()));
-            }
-        }));
-
-
-    }
-
-    static public ArrayList<User> findAll() throws SQLException {
-        var state = conn.get().createStatement();
-        var result = state.executeQuery("SELECT * FROM users");
-        var users = new ArrayList<User>();
-        while (result.next()) {
-            users.add(new User(result.getInt("id"), result.getString("name"), result.getString("email"), result.getString("password"), result.getDate("birthday")));
-        }
-        return users;
-    }
-
-    /**
-     * 根据用户名和密码查找用户
-     *
-     * @param name     用户名
-     * @param password 密码
-     * @return 用户
-     * @throws SQLException 数据库异常
-     */
     public Optional<User> findByNameAndPassword(String name, String password) throws SQLException {
-        var state = conn.get().createStatement();
-        var result = state.executeQuery("SELECT * FROM users WHERE name = '" + name + "' AND password = '" + password + "'");
-        if (result.next()) {
-            return Optional.of(new User(result.getInt("id"), result.getString("name"), result.getString("email"), result.getString("password"), result.getDate("birthday")));
+        String query = "SELECT * FROM users WHERE name = ? AND password = ?";
+        try (Connection connection = JDBCUtils.getConnection("root", "123456", "JDBC").orElseThrow();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, name);
+            statement.setString(2, password);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(new User(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("email"),
+                            resultSet.getString("password"),
+                            resultSet.getDate("birthday")
+                    ));
+                }
+            }
         }
         return Optional.empty();
     }
 
-    public int insert(User user) throws SQLException {
-        var state = conn.get().createStatement();
-        var u = findByNameAndPassword(user.getName(), user.getPassword());
-        if (u.isPresent()) {
-            return 0;
+    public ArrayList<User> findAll() throws SQLException {
+        String query = "SELECT * FROM users";
+        ArrayList<User> users = new ArrayList<>();
+        try (Connection connection = JDBCUtils.getConnection("root", "123456", "JDBC").orElseThrow();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                users.add(new User(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("email"),
+                        resultSet.getString("password"),
+                        resultSet.getDate("birthday")
+                ));
+            }
         }
-        var simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        var birthday = simpleDateFormat.format(user.getBirthday());
-        return state.executeUpdate("INSERT INTO users (name, email, password, birthday) VALUES ('" + user.getName() + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + birthday + "')");
+        return users;
     }
 
-    public void delete(int id) {
-        try {
-            var state = conn.get().createStatement();
-            state.executeUpdate("DELETE FROM users WHERE id = " + id);
-        } catch (SQLException e) {
-            System.out.println("删除用户失败\t" + Arrays.toString(e.getStackTrace()));
+    public int insert(User user) throws SQLException {
+        String query = "INSERT INTO users (name, email, password, birthday) VALUES (?, ?, ?, ?)";
+        try (Connection connection = JDBCUtils.getConnection("root", "123456", "JDBC").orElseThrow();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPassword());
+            statement.setDate(4, new java.sql.Date(user.getBirthday().getTime()));
+            return statement.executeUpdate();
+        }
+    }
+
+    public void delete(int id) throws SQLException {
+        String query = "DELETE FROM users WHERE id = ?";
+        try (Connection connection = JDBCUtils.getConnection("root", "123456", "JDBC").orElseThrow();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
         }
     }
 }

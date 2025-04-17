@@ -3,8 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script>
+        function getCookie(name) {
+            let nameEQ = name + "=";
+            let ca = document.cookie.split(';');
+            for(let i=0;i < ca.length;i++) {
+                let c = ca[i];
+                while (c.charAt(0)===' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+        function modify() {
+            let username = getCookie("userName");
+            username = username ? decodeURIComponent(username) : "Guest"; // 解码 Cookie 值
+            document.querySelector("#userName").innerText = username;
+        }
+    </script>
 </head>
 <body>
-<p>Welcome to this!</p>
+<p>Welcome to this! <span id="userName">Guest</span></p>
+<script>
+    modify();
+</script>
 </body>
 </html>
