@@ -3,42 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="css/common.css" type="text/css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet" type="text/css">
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            function getCookie(name) {
-                let nameEQ = name + "=";
-                let ca = document.cookie.split(';');
-                for (let i = 0; i < ca.length; i++) {
-                    let c = ca[i];
-                    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        function getCookie(name) {
+            let nameEQ = name + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+
+        let username = decodeURIComponent(getCookie("userName") || "");
+        let password = decodeURIComponent(getCookie("userPassword") || "");
+
+        // 自动发送 POST 请求
+        if (username && password) {
+            fetch("login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+            }).then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url; // 处理重定向
+                } else {
+                    return response.text(); // 处理非重定向的响应
                 }
-                return null;
-            }
+            }).then(data => {
+                console.log(data); // 可根据需要处理返回的数据
+            }).catch(error => {
+                console.error("Error:", error);
+            });
+        }
 
-            let username = decodeURIComponent(getCookie("userName") || "");
-            let password = decodeURIComponent(getCookie("userPassword") || "");
-
-            // 自动发送 POST 请求
-            if (username && password) {
-                let form = document.createElement("form");
-                form.method = "post";
-                form.action = "login";
-                form.innerHTML = `
-                    <input type="hidden" name="username" value="${username}">
-                    <input type="hidden" name="password" value="${password}">
-                `;
-                document.body.appendChild(form);
-                form.submit();
-            }
-        });
     </script>
 </head>
 <body>
 <fieldset>
     <legend>登录</legend>
-    <img src="img/1.png" alt="图片" width="600" height="800" align="center" sizes="max-width: 50%,max-height: 50%">
+    <img align="center" alt="图片" height="800" sizes="max-width: 50%,max-height: 50%" src="img/1.png" width="600">
     <form action="login" method="post">
         <p align="center">欢迎登入XXX系统</p>
         <table align="center" cellpadding="2">
