@@ -25,9 +25,13 @@ public class LoginServlet extends HttpServlet {
         var usersDao = new UsersDao();
         try{
             if (usersDao.findByNameAndPassword(username, password).isPresent()) {
-//                if(!hasLogin(req)) {
-//                    addCookies(resp, username, password);
-//                }
+                //添加cookie
+                if(hasLogin(req)){
+                    addCookies(resp, username, password);
+                }
+                //添加session
+                var session = req.getSession();
+                session.setAttribute("username", username);
                 resp.sendRedirect("welcome.html");
             } else {
                 req.getRequestDispatcher("login.html").forward(req, resp);

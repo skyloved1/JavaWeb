@@ -200,6 +200,14 @@
         <servlet-name>GetCookieDemoServlet</servlet-name>
         <url-pattern>/getCookie</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>GetProfileServlet</servlet-name>
+        <servlet-class>main.servlet.GetProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetProfileServlet</servlet-name>
+        <url-pattern>/getProfile</url-pattern>
+    </servlet-mapping>
 
 
 
