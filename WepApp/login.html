@@ -5,41 +5,41 @@
     <title>Title</title>
     <link href="css/common.css" rel="stylesheet" type="text/css">
     <script>
-        function getCookie(name) {
-            let nameEQ = name + "=";
-            let ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        }
-
-
-        let username = decodeURIComponent(getCookie("userName") || "");
-        let password = decodeURIComponent(getCookie("userPassword") || "");
-
-        // 自动发送 POST 请求
-        if (username && password) {
-            fetch("login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-            }).then(response => {
-                if (response.redirected) {
-                    window.location.href = response.url; // 处理重定向
-                } else {
-                    return response.text(); // 处理非重定向的响应
-                }
-            }).then(data => {
-                console.log(data); // 可根据需要处理返回的数据
-            }).catch(error => {
-                console.error("Error:", error);
-            });
-        }
+        // function getCookie(name) {
+        //     let nameEQ = name + "=";
+        //     let ca = document.cookie.split(';');
+        //     for (let i = 0; i < ca.length; i++) {
+        //         let c = ca[i];
+        //         while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        //         if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        //     }
+        //     return null;
+        // }
+        //
+        //
+        // let username = decodeURIComponent(getCookie("userName") || "");
+        // let password = decodeURIComponent(getCookie("userPassword") || "");
+        //
+        // // 自动发送 POST 请求
+        // if (username && password) {
+        //     fetch("login", {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/x-www-form-urlencoded"
+        //         },
+        //         body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+        //     }).then(response => {
+        //         if (response.redirected) {
+        //             window.location.href = response.url; // 处理重定向
+        //         } else {
+        //             return response.text(); // 处理非重定向的响应
+        //         }
+        //     }).then(data => {
+        //         console.log(data); // 可根据需要处理返回的数据
+        //     }).catch(error => {
+        //         console.error("Error:", error);
+        //     });
+        // }
 
     </script>
 </head>

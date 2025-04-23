@@ -19,7 +19,7 @@ public class JDBCUtils {
         try {
             return Optional.of(DriverManager.getConnection(url, userName, password));
         } catch (SQLException e) {
-            System.out.println("数据库" + dataBase + "连接失败\t" + Arrays.toString(e.getStackTrace()));
+            System.out.println("数据库" + dataBase + "连接失败\t" +e);
         }
         return Optional.empty();
     }

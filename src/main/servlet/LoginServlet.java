@@ -21,13 +21,13 @@ public class LoginServlet extends HttpServlet {
         //login post参数
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        //创建cookie
+
         var usersDao = new UsersDao();
         try{
             if (usersDao.findByNameAndPassword(username, password).isPresent()) {
-                if(!hasLogin(req)) {
-                    addCookies(resp, username, password);
-                }
+//                if(!hasLogin(req)) {
+//                    addCookies(resp, username, password);
+//                }
                 resp.sendRedirect("welcome.html");
             } else {
                 req.getRequestDispatcher("login.html").forward(req, resp);
