@@ -209,6 +209,15 @@
         <url-pattern>/getProfile</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>GetAllUsersServlet</servlet-name>
+        <servlet-class>main.servlet.GetAllServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetAllUsersServlet</servlet-name>
+        <url-pattern>/getAllUsers</url-pattern>
+    </servlet-mapping>
+
 
 
 
