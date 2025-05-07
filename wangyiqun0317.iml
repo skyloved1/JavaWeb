@@ -33,5 +33,10 @@
     <orderEntry type="library" name="mysql-connector-j-9.2.0" level="project" />
     <orderEntry type="library" name="jsp-api-2.0" level="project" />
     <orderEntry type="library" name="jakarta.servlet.jsp-api-4.0.0" level="project" />
+    <orderEntry type="library" name="jstl-1.2" level="project" />
+    <orderEntry type="library" name="jakarta.servlet.jsp.jstl-api-3.0.2" level="project" />
+    <orderEntry type="library" name="jakarta.servlet.jsp.jstl-api-3.0.2 (2)" level="project" />
+    <orderEntry type="library" name="jakarta.servlet.jsp.jstl-3.0.1" level="project" />
+    <orderEntry type="library" name="jakarta.servlet.jsp.jstl-api-3.0.1" level="project" />
   </component>
 </module>
